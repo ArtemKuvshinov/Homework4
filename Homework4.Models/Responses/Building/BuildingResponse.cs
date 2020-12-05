@@ -33,5 +33,15 @@ namespace Homework4.Models.Responses.Building
         /// Кадастровый номер
         /// </summary>
         public string CadastralNumber { get; set; }
+
+        /// <summary>
+        /// Название компании застройщика.
+        /// </summary>
+        public string ConstructionCompanyName { get; set; }
+
+        /// <summary>
+        /// Электронная почта застройщика.
+        /// </summary>
+        public string ConstructionCompanyEmail { get; set; }
     }
 }

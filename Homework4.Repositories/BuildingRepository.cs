@@ -3,6 +3,8 @@ using Homework4.DAL.Domain;
 using Homework4.Models.DTO;
 using Homework4.Repositories.Interfaces;
 using AutoMapper;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Homework4.Repositories
 {
@@ -13,6 +15,11 @@ namespace Homework4.Repositories
     {
         public BuildingRepository(Homework3Context context, IMapper mapper) : base(context, mapper)
         {
+        }
+
+        protected override IQueryable<Building> DefaultIncludeProperties(DbSet<Building> dbSet)
+        {
+            return DbSet.Include(x => x.ConstructionCompany);
         }
     }
 }

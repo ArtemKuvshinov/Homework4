@@ -66,7 +66,7 @@ namespace Homework4.Repositories
         /// <returns>Экземпляр сущности DTO.</returns>
         public TDto Get(long id)
         {
-            var entity = DbSet.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            var entity = DefaultIncludeProperties(DbSet).AsNoTracking().FirstOrDefault(x => x.Id == id);
             return _mapper.Map<TDto>(entity);
         }
 
@@ -78,7 +78,7 @@ namespace Homework4.Repositories
         ///  /// <inheritdoc cref="IGettable{TDto, TModel}.Get(CancellationToken)"/>
         public IEnumerable<TDto> Get(CancellationToken token = default)
         {
-            return _mapper.Map<IEnumerable<TDto>>(DbSet.AsNoTracking().ToList());            
+            return _mapper.Map<IEnumerable<TDto>>(DefaultIncludeProperties(DbSet).AsNoTracking().ToList());            
         }
 
         /// <summary>
@@ -96,6 +96,13 @@ namespace Homework4.Repositories
             var newEntity = Get(entity.Id);
             return _mapper.Map<TDto>(newEntity);
         }
+
+
+        /// <summary>
+        /// Добавляет к выборке связанные параметры.
+        /// </summary>
+        /// <param name="dbSet">Коллекция DbSet репозитория.</param>
+        protected virtual IQueryable<TModel> DefaultIncludeProperties(DbSet<TModel> dbSet) => dbSet;
 
     }
 }
