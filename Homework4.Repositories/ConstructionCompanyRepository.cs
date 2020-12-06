@@ -11,7 +11,7 @@ namespace Homework4.Repositories
     /// </summary>
     public class ConstructionCompanyRepository : BaseRepository<ConstructionCompanyDTO, ConstructionCompany>, IConstructionCompanyRepository
     {
-        public ConstructionCompanyRepository(Homework3Context context, IMapper mapper) : base(context, mapper)
+        public ConstructionCompanyRepository(Homework4Context context, IMapper mapper) : base(context, mapper)
         {
         }
     }

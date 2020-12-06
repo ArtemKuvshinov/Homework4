@@ -19,7 +19,7 @@ namespace Homework4.Repositories
                                                                                        where TModel : BaseEntity
     {
         private readonly IMapper _mapper;
-        protected readonly Homework3Context _сontext;
+        protected readonly Homework4Context _сontext;
         protected DbSet<TModel> DbSet => _сontext.Set<TModel>();
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Homework4.Repositories
         /// </summary>
         /// <param name="context">Контекст данных.</param>
         /// <param name="mapper">Маппер.</param>
-        protected BaseRepository(Homework3Context context, IMapper mapper)
+        protected BaseRepository(Homework4Context context, IMapper mapper)
         {
             _сontext = context;
             _mapper = mapper;

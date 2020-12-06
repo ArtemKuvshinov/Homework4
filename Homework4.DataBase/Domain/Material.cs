@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Homework4.DAL.Domain
@@ -27,5 +28,10 @@ namespace Homework4.DAL.Domain
         /// </summary>
         [Required]
         public int LifeTime { get; set; }
+
+        /// <summary>
+        /// Состав строительных материалов в здании.
+        /// </summary>
+        public ICollection<BuildingСomposition> BuildingСompositions { get; set; }
     }
 }

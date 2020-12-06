@@ -17,10 +17,10 @@ namespace Homework4.DAL.Bootstrap
         /// <param name="configuration">Конфигурация.</param>
         public static void ConfigureDb(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<Homework3Context>(    
+            services.AddDbContext<Homework4Context>(    
                 options => options.UseNpgsql(
-                    configuration.GetConnectionString(nameof(Homework3Context)),
-                    builder => builder.MigrationsAssembly(typeof(Homework3Context).Assembly.FullName))
+                    configuration.GetConnectionString(nameof(Homework4Context)),
+                    builder => builder.MigrationsAssembly(typeof(Homework4Context).Assembly.FullName))
             );
         }
     }
