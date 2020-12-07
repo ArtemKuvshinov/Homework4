@@ -30,6 +30,11 @@ namespace Homework4.Models.Responses.Building
         public int NumberOfFloors { get; set; }
 
         /// <summary>
+        /// Кол-во помещений.
+        /// </summary>
+        public int NumberOfFlat { get; set; }
+
+        /// <summary>
         /// Кадастровый номер
         /// </summary>
         public string CadastralNumber { get; set; }

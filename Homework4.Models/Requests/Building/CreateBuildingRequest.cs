@@ -33,5 +33,10 @@ namespace Homework4.Models.Requests.Building
         /// </summary>
         [StringLength(200)]
         public string Purpose { get; set; }
+
+        /// <summary>
+        /// Кол-во помещений.
+        /// </summary>
+        public int NumberOfFlat { get; set; }
     }
 }

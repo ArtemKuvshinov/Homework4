@@ -35,5 +35,10 @@ namespace Homework4.Models.DTO
         /// Поставщик.
         /// </summary>
         public ConstructionCompanyDTO ConstructionCompany { get; set; }
+
+        /// <summary>
+        /// Кол-во помещений.
+        /// </summary>
+        public int NumberOfFlat { get; set; }
     }
 }
