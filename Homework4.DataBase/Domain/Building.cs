@@ -44,5 +44,10 @@ namespace Homework4.DAL.Domain
         /// Состав строительных материалов в здании.
         /// </summary>
         public ICollection<BuildingСomposition> BuildingСompositions { get; set; }
+        
+        /// <summary>
+        /// Кол-во помещений.
+        /// </summary>
+       public int NumberOfFlat { get; set; }
     }
 }
