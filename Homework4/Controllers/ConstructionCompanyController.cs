@@ -32,7 +32,6 @@ namespace Homework4.Controllers
             _mapper = mapper;
         }
 
-
         /// <summary>
         /// Получение Застройщика по Id.
         /// </summary>

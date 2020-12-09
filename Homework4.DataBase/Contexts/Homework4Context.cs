@@ -44,7 +44,7 @@ namespace Homework4.DAL.Contexts
         public DbSet<Material> Materials { get; set; }
 
         /// <summary>
-        /// Маериалы используемые в конкетном здании.
+        /// Маnериалы используемые в конкретном здании.
         /// </summary>
         public DbSet<BuildingСomposition> BuildingСompositions { get; set; }
 

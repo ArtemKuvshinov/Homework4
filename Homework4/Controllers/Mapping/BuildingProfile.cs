@@ -17,7 +17,6 @@ namespace Homework4.Controllers.Mapping
         {
             CreateMap<CreateBuildingRequest, BuildingDTO>();
             CreateMap<UpdateBuildingRequest, BuildingDTO>();
-
             CreateMap<BuildingDTO, BuildingResponse>()
                 .ForMember(x=>x.ConstructionCompanyName, y => y.MapFrom(prop => prop.ConstructionCompany.Name))
                 .ForMember(x => x.ConstructionCompanyEmail, y => y.MapFrom(prop => prop.ConstructionCompany.Email));

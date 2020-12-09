@@ -9,7 +9,9 @@ namespace Homework4.Repositories
     /// <summary>
     /// Репозиторий для работы с сущностями Застройщик.
     /// </summary>
-    public class ConstructionCompanyRepository : BaseRepository<ConstructionCompanyDTO, ConstructionCompany>, IConstructionCompanyRepository
+    public class ConstructionCompanyRepository : 
+        BaseRepository<ConstructionCompanyDTO, ConstructionCompany>, 
+        IConstructionCompanyRepository
     {
         public ConstructionCompanyRepository(Homework4Context context, IMapper mapper) : base(context, mapper)
         {

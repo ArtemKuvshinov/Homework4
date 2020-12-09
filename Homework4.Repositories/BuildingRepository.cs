@@ -11,7 +11,9 @@ namespace Homework4.Repositories
     /// <summary>
     /// Репозиторий для работы с сущностями Здание.
     /// </summary>
-    public class BuildingRepository : BaseRepository<BuildingDTO, Building>, IBuildingRepository
+    public class BuildingRepository : 
+        BaseRepository<BuildingDTO, Building>, 
+        IBuildingRepository
     {
         public BuildingRepository(Homework4Context context, IMapper mapper) : base(context, mapper)
         {

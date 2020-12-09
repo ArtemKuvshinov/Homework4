@@ -5,11 +5,12 @@
     /// </summary>
     /// <typeparam name="TDto">DTO.</typeparam>
     /// <typeparam name="TModel">Domain model.</typeparam>
-    public interface ICrudService<TDto> : ICreatable<TDto>,
-                                          IGettableById<TDto>,
-                                          IGettable<TDto>,
-                                          IUpdatable<TDto>,
-                                          IDeletable
+    public interface ICrudService<TDto> : 
+          ICreatable<TDto>,
+          IGettableById<TDto>,
+          IGettable<TDto>,
+          IUpdatable<TDto>,
+          IDeletable
     {
     }
 }
