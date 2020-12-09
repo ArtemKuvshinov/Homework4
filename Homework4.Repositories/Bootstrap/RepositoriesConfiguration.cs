@@ -17,6 +17,8 @@ namespace Homework4.Repositories.Bootstrap
         {
             services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddScoped<IConstructionCompanyRepository, ConstructionCompanyRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
         }
     }
 }

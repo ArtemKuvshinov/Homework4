@@ -9,7 +9,7 @@ using AutoMapper;
 using Homework4.Models.Requests.ConstructionCompany;
 using Homework4.Models.Responses.ConstructionCompany;
 using System.Threading;
-
+using Homework4.Repositories.Interfaces;
 
 namespace Homework4.Controllers
 {
@@ -42,7 +42,7 @@ namespace Homework4.Controllers
         public IActionResult GetById(long id, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Construction/GetById was requested.");
-            var response = _constructionCompanyService.Get(id, cancellationToken);
+             var response = _constructionCompanyService.Get(id, cancellationToken);
             return Ok(_mapper.Map<ConstructionCompanyResponse>(response));
         }
 
@@ -69,8 +69,8 @@ namespace Homework4.Controllers
         public IActionResult Post(CreateConstructionCompanyRequest request)
         {
             _logger.LogInformation("ConstructionCompany/Post was requested.");
-            var response = _constructionCompanyService.Create(_mapper.Map<ConstructionCompanyDTO>(request));
-            return Ok(_mapper.Map<ConstructionCompanyResponse>(response));
+            _constructionCompanyService.Create(_mapper.Map<ConstructionCompanyDTO>(request));
+            return Ok(request);
         }
 
         /// <summary>
@@ -82,8 +82,9 @@ namespace Homework4.Controllers
         public IActionResult Put(UpdateConstructionCompanyRequest request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("ConstructionCompany/Put was requested.");
-            var response = _constructionCompanyService.Update(_mapper.Map<ConstructionCompanyDTO>(request));
-            return Ok(_mapper.Map<ConstructionCompanyResponse>(response));
+            _constructionCompanyService.Update(_mapper.Map<ConstructionCompanyDTO>(request));
+            var updatedEntity = _constructionCompanyService.Get(request.Id, cancellationToken);
+            return Ok(updatedEntity);
         }
 
         /// <summary>

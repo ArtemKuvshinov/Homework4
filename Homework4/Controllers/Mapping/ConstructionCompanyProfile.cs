@@ -17,6 +17,7 @@ namespace Homework4.Controllers.Mapping
         {
             CreateMap<CreateConstructionCompanyRequest, ConstructionCompanyDTO>();
             CreateMap<UpdateConstructionCompanyRequest, ConstructionCompanyDTO>();
+
             CreateMap<ConstructionCompanyDTO, ConstructionCompanyResponse>();
         }
     }

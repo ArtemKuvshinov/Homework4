@@ -25,7 +25,7 @@ namespace Homework4.DAL.Contexts
         /// <param name="builder">Билдер моделей.</param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new BuildingСompositionConfig());
+             builder.ApplyConfiguration(new BuildingСompositionConfig());
         }
 
         /// <summary>

@@ -11,7 +11,6 @@
         /// Изменение сущности.
         /// </summary>
         /// <param name="dto">DTO.</param>
-        /// <returns>Обновленная сущность.</returns>
-        TDto Update(TDto dto);
+        void Update(TDto dto);
     }
 }

@@ -13,7 +13,6 @@ namespace Homework4.Repositories.Interfaces.CRUD
         /// Создание сущности.
         /// </summary>
         /// <param name="dto">DTO.</param>
-        /// <returns>Идентификатор созданной сущности.</returns>
-        TDto Create(TDto dto);
+        void Create(TDto dto);
     }
 }

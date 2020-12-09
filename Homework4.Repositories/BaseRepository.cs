@@ -15,8 +15,9 @@ namespace Homework4.Repositories
     /// </summary>
     /// <typeparam name="TDto">DTO.</typeparam>
     /// <typeparam name="TModel">Доменная модель.</typeparam>
-    public abstract class BaseRepository<TDto, TModel> : ICrudRepository<TDto, TModel> where TDto : BaseDto
-                                                                                       where TModel : BaseEntity
+    public abstract class BaseRepository<TDto, TModel> : ICrudRepository<TDto, TModel>
+        where TDto : BaseDto
+        where TModel : BaseEntity
     {
         private readonly IMapper _mapper;
         protected readonly Homework4Context _сontext;
@@ -40,12 +41,10 @@ namespace Homework4.Repositories
         /// <returns>Новая добавленная сущность DTO.</returns>
         /// <inheritdoc cref="ICreatable{TDto, TModel}.Create(TDto)"/>
         /// 
-        public TDto Create(TDto dto)
+        public void Create(TDto dto)
         {
             var entity = _mapper.Map<TModel>(dto);
             DbSet.Add(entity);
-            _сontext.SaveChanges();
-            return Get(entity.Id);
         }
 
         /// <summary>
@@ -56,7 +55,6 @@ namespace Homework4.Repositories
         {
             var entities = DbSet.Where(x => ids.Contains(x.Id)).ToList();
             _сontext.RemoveRange(entities);
-            _сontext.SaveChanges();
         }
 
         /// <summary>
@@ -86,17 +84,11 @@ namespace Homework4.Repositories
         /// </summary>
         /// <param name="dto">Изменяемая сущность DTO</param>
         /// <returns>Измененный экземпляр сущности.</returns>
-        public TDto Update(TDto dto)
+        public void Update(TDto dto)
         {
             var entity = _mapper.Map<TModel>(dto);
-
             _сontext.Update(entity);
-            _сontext.SaveChanges();
-
-            var newEntity = Get(entity.Id);
-            return _mapper.Map<TDto>(newEntity);
         }
-
 
         /// <summary>
         /// Добавляет к выборке связанные параметры.

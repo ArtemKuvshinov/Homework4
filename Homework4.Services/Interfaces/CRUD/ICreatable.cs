@@ -11,7 +11,6 @@
         /// Создание сущности.
         /// </summary>
         /// <param name="dto">DTO.</param>
-        /// <returns>Идентификатор созданной сущности.</returns>
-        TDto Create(TDto dto);
+        void Create(TDto dto);
     }
 }
