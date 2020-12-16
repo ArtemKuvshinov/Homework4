@@ -15,11 +15,12 @@ namespace Homework4.Repositories
     /// </summary>
     /// <typeparam name="TDto">DTO.</typeparam>
     /// <typeparam name="TModel">Доменная модель.</typeparam>
-    public abstract class BaseRepository<TDto, TModel> : ICrudRepository<TDto, TModel> where TDto : BaseDto
-                                                                                       where TModel : BaseEntity
+    public abstract class BaseRepository<TDto, TModel> : ICrudRepository<TDto, TModel>
+        where TDto : BaseDto
+        where TModel : BaseEntity
     {
         private readonly IMapper _mapper;
-        protected readonly Homework3Context _сontext;
+        protected readonly Homework4Context _сontext;
         protected DbSet<TModel> DbSet => _сontext.Set<TModel>();
 
         /// <summary>
@@ -27,7 +28,7 @@ namespace Homework4.Repositories
         /// </summary>
         /// <param name="context">Контекст данных.</param>
         /// <param name="mapper">Маппер.</param>
-        protected BaseRepository(Homework3Context context, IMapper mapper)
+        protected BaseRepository(Homework4Context context, IMapper mapper)
         {
             _сontext = context;
             _mapper = mapper;
@@ -40,12 +41,10 @@ namespace Homework4.Repositories
         /// <returns>Новая добавленная сущность DTO.</returns>
         /// <inheritdoc cref="ICreatable{TDto, TModel}.Create(TDto)"/>
         /// 
-        public TDto Create(TDto dto)
+        public void Create(TDto dto)
         {
             var entity = _mapper.Map<TModel>(dto);
             DbSet.Add(entity);
-            _сontext.SaveChanges();
-            return Get(entity.Id);
         }
 
         /// <summary>
@@ -56,7 +55,6 @@ namespace Homework4.Repositories
         {
             var entities = DbSet.Where(x => ids.Contains(x.Id)).ToList();
             _сontext.RemoveRange(entities);
-            _сontext.SaveChanges();
         }
 
         /// <summary>
@@ -66,7 +64,7 @@ namespace Homework4.Repositories
         /// <returns>Экземпляр сущности DTO.</returns>
         public TDto Get(long id)
         {
-            var entity = DbSet.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            var entity = DefaultIncludeProperties(DbSet).AsNoTracking().FirstOrDefault(x => x.Id == id);
             return _mapper.Map<TDto>(entity);
         }
 
@@ -78,7 +76,7 @@ namespace Homework4.Repositories
         ///  /// <inheritdoc cref="IGettable{TDto, TModel}.Get(CancellationToken)"/>
         public IEnumerable<TDto> Get(CancellationToken token = default)
         {
-            return _mapper.Map<IEnumerable<TDto>>(DbSet.AsNoTracking().ToList());            
+            return _mapper.Map<IEnumerable<TDto>>(DefaultIncludeProperties(DbSet).AsNoTracking().ToList());            
         }
 
         /// <summary>
@@ -86,16 +84,17 @@ namespace Homework4.Repositories
         /// </summary>
         /// <param name="dto">Изменяемая сущность DTO</param>
         /// <returns>Измененный экземпляр сущности.</returns>
-        public TDto Update(TDto dto)
+        public void Update(TDto dto)
         {
             var entity = _mapper.Map<TModel>(dto);
-
             _сontext.Update(entity);
-            _сontext.SaveChanges();
-
-            var newEntity = Get(entity.Id);
-            return _mapper.Map<TDto>(newEntity);
         }
+
+        /// <summary>
+        /// Добавляет к выборке связанные параметры.
+        /// </summary>
+        /// <param name="dbSet">Коллекция DbSet репозитория.</param>
+        protected virtual IQueryable<TModel> DefaultIncludeProperties(DbSet<TModel> dbSet) => dbSet;
 
     }
 }

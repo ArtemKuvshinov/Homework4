@@ -30,5 +30,15 @@ namespace Homework4.Models.DTO
         [Required]
         [RegularExpression(@"\d{2}[:]\d{6,7}[:]\d{2}[:]\d{2}")]
         public string CadastralNumber { get; set; }
+
+        /// <summary>
+        /// Поставщик.
+        /// </summary>
+        public ConstructionCompanyDTO ConstructionCompany { get; set; }
+
+        /// <summary>
+        /// Кол-во помещений.
+        /// </summary>
+        public int NumberOfFlat { get; set; }
     }
 }

@@ -5,11 +5,12 @@
     /// </summary>
     /// <typeparam name="TDto"></typeparam>
     /// <typeparam name="TModel"></typeparam>
-    public interface ICrudRepository<TDto, TModel> : ICreatable<TDto, TModel>,
-                                                     IGettableById<TDto, TModel>,
-                                                     IGettable<TDto, TModel>,
-                                                     IUpdatable<TDto, TModel>,
-                                                     IDeletable
+    public interface ICrudRepository<TDto, TModel>  : 
+          ICreatable<TDto, TModel>,
+          IGettableById<TDto, TModel>,
+          IGettable<TDto, TModel>,
+          IUpdatable<TDto, TModel>,
+          IDeletable
     {        
     }
 }

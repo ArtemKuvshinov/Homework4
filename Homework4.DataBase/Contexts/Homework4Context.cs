@@ -1,21 +1,31 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Homework4.DAL.Domain;
+using Homework4.DAL.Fluent;
 
 namespace Homework4.DAL.Contexts
 {
     /// <summary>
     /// Контекс для работы с БД "Здания".
     /// </summary>
-    public class Homework3Context : DbContext
+    public class Homework4Context : DbContext
     {
         /// <summary>
-        /// Инициализирует экземпляр <see cref="Homework3Context"/>.
+        /// Инициализирует экземпляр <see cref="Homework4Context"/>.
         /// </summary>
         /// <param name="options">Опции для конфигурации контекста.</param>
-        public Homework3Context(DbContextOptions options) : base(options)
+        public Homework4Context(DbContextOptions options) : base(options)
         {
-            //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+           //Database.EnsureDeleted();
+           //Database.EnsureCreated();
+        }
+
+        /// <summary>
+        /// Правила создания сущностей.
+        /// </summary>
+        /// <param name="builder">Билдер моделей.</param>
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+             builder.ApplyConfiguration(new BuildingСompositionConfig());
         }
 
         /// <summary>
@@ -34,7 +44,7 @@ namespace Homework4.DAL.Contexts
         public DbSet<Material> Materials { get; set; }
 
         /// <summary>
-        /// Маериалы используемые в конкетном здании.
+        /// Маnериалы используемые в конкретном здании.
         /// </summary>
         public DbSet<BuildingСomposition> BuildingСompositions { get; set; }
 

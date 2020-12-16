@@ -1,6 +1,9 @@
-﻿using Homework4.Models.DTO;
+﻿using Homework4.DAL.Domain;
+using Homework4.Models.DTO;
+using Homework4.Repositories;
 using Homework4.Repositories.Interfaces;
 using Homework4.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -8,46 +11,75 @@ namespace Homework4.Services.Services
 {
     public class ConstructionCompanyService : IConstructionCompanyService
     {
-        private readonly IConstructionCompanyRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// Инициализирует экземпляр <see cref="ConstructionCompanyService"/>.
         /// </summary>
         /// <param name="repository">Репозиторий</param>
-        public ConstructionCompanyService(IConstructionCompanyRepository repository)
+        public ConstructionCompanyService(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         ///<inheritdoc cref="ICreatable{TDto}.Create(TDto)"/>
-        public ConstructionCompanyDTO Create(ConstructionCompanyDTO dto)
+        public void Create(ConstructionCompanyDTO dto)
         {
-            return _repository.Create(dto);
+            _unitOfWork.BeginTrasaction();
+            try
+            {
+                _unitOfWork.ConstructionCompany.Create(dto);
+                _unitOfWork.Save();
+                _unitOfWork.CommitTrasaction();
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.RollBackTrasaction();
+            }
         }
 
         /// <inheritdoc cref="IDeletable.Delete(long[])"/>
         public void Delete(params long[] ids)
         {
-            _repository.Delete(ids);
+            _unitOfWork.BeginTrasaction();
+            try
+            {
+                _unitOfWork.ConstructionCompany.Delete(ids);               
+                _unitOfWork.Save();
+                _unitOfWork.CommitTrasaction();
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.RollBackTrasaction();
+            }
         }
 
         /// <inheritdoc cref="IGettableById{TDto}.Get(long, CancellationToken)"/>
         public ConstructionCompanyDTO Get(long id, CancellationToken token = default)
         {
-            return _repository.Get(id);
+            return _unitOfWork.ConstructionCompany.Get(id);
         }
 
         /// <inheritdoc cref="IGettable{TDto}.Get(CancellationToken)"/>
         public IEnumerable<ConstructionCompanyDTO> Get(CancellationToken token = default)
         {
-            return _repository.Get();
+            return _unitOfWork.ConstructionCompany.Get();
         }
 
-
         /// <inheritdoc cref="IUpdatable{TDto}.Update(TDto)"/>
-        public ConstructionCompanyDTO Update(ConstructionCompanyDTO dto)
+        public void Update(ConstructionCompanyDTO dto)
         {
-            return _repository.Update(dto);
+            _unitOfWork.BeginTrasaction();
+            try
+            {
+                _unitOfWork.ConstructionCompany.Update(dto);
+                _unitOfWork.Save();
+                _unitOfWork.CommitTrasaction();
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.RollBackTrasaction();
+            }
         }
     }
 }

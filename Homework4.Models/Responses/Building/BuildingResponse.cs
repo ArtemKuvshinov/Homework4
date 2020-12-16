@@ -30,8 +30,23 @@ namespace Homework4.Models.Responses.Building
         public int NumberOfFloors { get; set; }
 
         /// <summary>
+        /// Кол-во помещений.
+        /// </summary>
+        public int NumberOfFlat { get; set; }
+
+        /// <summary>
         /// Кадастровый номер
         /// </summary>
         public string CadastralNumber { get; set; }
+
+        /// <summary>
+        /// Название компании застройщика.
+        /// </summary>
+        public string ConstructionCompanyName { get; set; }
+
+        /// <summary>
+        /// Электронная почта застройщика.
+        /// </summary>
+        public string ConstructionCompanyEmail { get; set; }
     }
 }

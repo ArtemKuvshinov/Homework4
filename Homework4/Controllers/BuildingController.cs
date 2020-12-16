@@ -9,6 +9,7 @@ using AutoMapper;
 using Homework4.Models.Requests.Building;
 using Homework4.Models.Responses.Building;
 using System.Threading;
+using Homework4.Repositories.Interfaces;
 
 namespace Homework4.Controllers
 {
@@ -71,8 +72,9 @@ namespace Homework4.Controllers
         public IActionResult Put(UpdateBuildingRequest request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Building/Put was requested.");
-            var response = _buildingService.Update(_mapper.Map<BuildingDTO>(request));
-            return Ok(_mapper.Map<BuildingResponse>(response));
+           _buildingService.Update(_mapper.Map<BuildingDTO>(request));
+            var updatedEntity = _buildingService.Get(request.Id, cancellationToken);
+            return Ok(updatedEntity);
         }
 
         /// <summary>
@@ -85,8 +87,8 @@ namespace Homework4.Controllers
         public IActionResult Post(CreateBuildingRequest request)
         {
             _logger.LogInformation("Buildings/Post was requested.");
-            var response =_buildingService.Create(_mapper.Map<BuildingDTO>(request));            
-            return Ok(_mapper.Map<BuildingResponse>(response));
+            _buildingService.Create(_mapper.Map<BuildingDTO>(request));
+            return Ok(request);
         }
 
         /// <summary>

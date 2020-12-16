@@ -18,45 +18,75 @@ namespace Homework4.Services.Services
     /// <inheritdoc cref="IBuildingService"/>
     public class BuildingService : IBuildingService
     {
-        private readonly IBuildingRepository _repository;
+        private readonly IUnitOfWork _unitOfWork;
 
         /// <summary>
         /// Инициализирует экземпляр <see cref="BuildingService"/>.
         /// </summary>
         /// <param name="repository">Репозиторий</param>
-        public BuildingService(IBuildingRepository repository)
+        public BuildingService(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            _unitOfWork = unitOfWork;
         }
 
         ///<inheritdoc cref="ICreatable{TDto}.Create(TDto)"/>
-        public BuildingDTO Create(BuildingDTO dto)
+        public void Create(BuildingDTO dto)
         {
-            return _repository.Create(dto);
+            _unitOfWork.BeginTrasaction();
+            try
+            {
+                _unitOfWork.Building.Create(dto);
+                _unitOfWork.Save();
+                _unitOfWork.CommitTrasaction();
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.RollBackTrasaction();
+            }
         }
 
         /// <inheritdoc cref="IGettableById{TDto}.Get(long, CancellationToken)"/>
         public BuildingDTO Get(long id, CancellationToken token = default)
         {
-            return _repository.Get(id);
+            return _unitOfWork.Building.Get(id);
         }
 
         /// <inheritdoc cref="IGettable{TDto}.Get(CancellationToken)"/>
         public IEnumerable<BuildingDTO> Get(CancellationToken token = default)
         {
-            return _repository.Get();
+            return _unitOfWork.Building.Get();
         }
 
         /// <inheritdoc cref="IUpdatable{TDto}.Update(TDto)"/>
-        public BuildingDTO Update(BuildingDTO dto)
+        public void Update(BuildingDTO dto)
         {
-            return _repository.Update(dto);
+            _unitOfWork.BeginTrasaction();
+            try
+            {
+                _unitOfWork.Building.Update(dto);               
+                _unitOfWork.Save();
+                _unitOfWork.CommitTrasaction();
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.RollBackTrasaction();
+            }
         }
 
         /// <inheritdoc cref="IDeletable.Delete(long[])"/>
         public void Delete(params long[] ids)
         {
-            _repository.Delete(ids);
+            _unitOfWork.BeginTrasaction();
+            try
+            {
+                _unitOfWork.Building.Delete(ids);
+                _unitOfWork.Save();
+                _unitOfWork.CommitTrasaction();
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.RollBackTrasaction();
+            }
         }
 
     }

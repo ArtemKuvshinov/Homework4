@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Homework4.DAL.Domain
@@ -38,5 +39,15 @@ namespace Homework4.DAL.Domain
         /// Застройщик.
         /// </summary>
         public ConstructionCompany ConstructionCompany { get; set;}
+
+        /// <summary>
+        /// Состав строительных материалов в здании.
+        /// </summary>
+        public ICollection<BuildingСomposition> BuildingСompositions { get; set; }
+        
+        /// <summary>
+        /// Кол-во помещений.
+        /// </summary>
+       public int NumberOfFlat { get; set; }
     }
 }
